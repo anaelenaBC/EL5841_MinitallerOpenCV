@@ -4,7 +4,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 cap = cv2.VideoCapture(0)
 
-glasses = cv2.imread("lentes.png", cv2.IMREAD_UNCHANGED)
+glasses = cv2.imread("3_filtroLentes\lentes.png", cv2.IMREAD_UNCHANGED)
 if glasses is None:
     print("Error: No se pudo cargar la imagen de lentes. Revisa la ruta.")
     exit()
