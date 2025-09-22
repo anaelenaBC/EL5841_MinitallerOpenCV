@@ -690,24 +690,24 @@ body, html {
             <div class="tutorial-section">
                 <div class="collapsible-container">
                     <button class="collapsible-button" onclick="toggleCollapsible3()">
-                        <span class="button-text">¿Qué es una librería?</span>
+                        <span class="button-text">¿Qué es una biblioteca?</span>
                         <span class="button-icon">▼</span>
                     </button>
                     <div class="collapsible-content" id="collapsibleContent3">
                         <div class="collapsible-text">
-                    <p>Una librería en software es un conjunto de códigos, funciones, clases o módulos predefinidos que los programadores pueden usar para realizar tareas comunes sin tener que escribir todo desde cero. Es, básicamente, un paquete de herramientas listas para usar que acelera el desarrollo y mejora la eficiencia del código.</p>
+                    <p>Una biblioteca en software es un conjunto de códigos, funciones, clases o módulos predefinidos que los programadores pueden usar para realizar tareas comunes sin tener que escribir todo desde cero. Es, básicamente, un paquete de herramientas listas para usar que acelera el desarrollo y mejora la eficiencia del código.</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="collapsible-container">
                     <button class="collapsible-button" onclick="toggleCollapsible4()">
-                        <span class="button-text">¿Qué es una librería embebida?</span>
+                        <span class="button-text">¿Qué es una biblioteca embebida?</span>
                         <span class="button-icon">▼</span>
                     </button>
                     <div class="collapsible-content" id="collapsibleContent4">
                         <div class="collapsible-text">
-                    <p>Una librería embebida es una librería que viene incorporada dentro de un software o sistema, de manera que no necesitas instalarla por separado. Se dice que está "embebida" porque forma parte del paquete principal o del entorno de ejecución, garantizando compatibilidad y facilidad de distribución.</p>
+                    <p>Una biblioteca embebida es una biblioteca que viene incorporada dentro de un software o sistema, de manera que no necesitas instalarla por separado. Se dice que está "embebida" porque forma parte del paquete principal o del entorno de ejecución, garantizando compatibilidad y facilidad de distribución.</p>
                         </div>
                     </div>
                 </div>
@@ -731,7 +731,7 @@ body, html {
                     </button>
                     <div class="collapsible-content" id="collapsibleContent6">
                         <div class="collapsible-text">
-                    <p>OpenCV (Open Source Computer Vision Library) es una librería de software de código abierto diseñada para visión por computadora y procesamiento de imágenes. Es muy popular porque permite que los desarrolladores construyan aplicaciones que puedan "ver" y entender imágenes y videos de manera eficiente y robusta.</p>
+                    <p>OpenCV (Open Source Computer Vision Library) es una biblioteca de software de código abierto diseñada para visión por computadora y procesamiento de imágenes. Es muy popular porque permite que los desarrolladores construyan aplicaciones que puedan "ver" y entender imágenes y videos de manera eficiente y robusta.</p>
                         </div>
                     </div>
                 </div>
@@ -789,7 +789,7 @@ body, html {
                     <h3>1_reconocimientoColores.py</h3>
                     <p>Este programa utiliza OpenCV para detectar y reconocer colores específicos en tiempo real a través de la cámara web. Implementa algoritmos de segmentación de color en el espacio HSV para identificar objetos de colores predefinidos y dibujar contornos alrededor de ellos.</p>
                     <div style="text-align: center; margin-top: 1rem;">
-                        <img src="resources/1.jpeg" alt="Ejemplo de detección de colores" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                        <img src="resources/1.jpeg" oncontextmenu="return false;" alt="Ejemplo de detección de colores" draggable="false" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                     </div>
                 </div>
                 
@@ -797,7 +797,7 @@ body, html {
                     <h3>2_direccionMirada.py</h3>
                     <p>Este programa utiliza OpenCV para detectar en tiempo real si el usuario está mirando directamente a la cámara web. Emplea algoritmos de detección facial y de ojos para analizar la posición de los ojos dentro del rostro y determinar la dirección de la mirada. Si ambos ojos son detectados y están alineados hacia la cámara, el sistema muestra un mensaje indicando que el usuario está prestando atención. Esta funcionalidad es especialmente útil en aplicaciones de seguridad o de control de acceso.</p>
                     <div style="text-align: center; margin-top: 1rem;">
-                        <img src="resources/2.jpeg" alt="Ejemplo de detección de mirada" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                        <img src="resources/2.jpeg" oncontextmenu="return false;" alt="Ejemplo de detección de mirada" draggable="false" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                     </div>
                 </div>
                 
@@ -805,7 +805,7 @@ body, html {
                     <h3>3_filtroLentes.py</h3>
                     <p>Este programa implementa un filtro de realidad aumentada que superpone lentes virtuales sobre el rostro del usuario en tiempo real utilizando la cámara web. El proceso comienza detectando la cara y los ojos mediante los clasificadores Haar Cascade de OpenCV. Una vez localizados los ojos, el sistema calcula la posición y el tamaño adecuados para colocar la imagen de los lentes virtuales. Esta técnica es ampliamente utilizada en aplicaciones de entretenimiento, redes sociales y demostraciones de realidad aumentada.</p>
                     <div style="text-align: center; margin-top: 1rem;">
-                        <img src="resources/3.jpeg" alt="Ejemplo de filtro de lentes" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                        <img src="resources/3.jpeg" oncontextmenu="return false;" alt="Ejemplo de filtro de lentes" draggable="false" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                     </div>
                 </div>
                 
@@ -815,7 +815,7 @@ body, html {
                         Este programa utiliza OpenCV para analizar imágenes y determinar si contienen rostros humanos. Emplea algoritmos de detección facial que examinan cada imagen de una carpeta de entrada, identificando la presencia o ausencia de caras. Si se detecta al menos un rostro en la imagen, el archivo se mueve automáticamente a una carpeta designada para imágenes con caras; en caso contrario, se traslada a una carpeta separada para imágenes sin caras. Este proceso es útil para organizar grandes volúmenes de fotografías.
                     </p>
                     <div style="text-align: center; margin-top: 1rem;">
-                        <img src="resources/4.jpeg" alt="Ejemplo de filtro de lentes" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                        <img src="resources/4.jpeg" oncontextmenu="return false;" alt="Ejemplo de filtro de lentes" draggable="false" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
                     </div>
                 </div>
             </div>
@@ -868,7 +868,7 @@ body, html {
                             <div class="code-block">python --version</div>
                         </div>
                     </div>
-                    
+
                     <div class="step">
                         <div class="step-number">6</div>
                         <div class="step-content">
@@ -905,6 +905,15 @@ body, html {
 C:\Users\Usuario\AppData\Local\Programs\Python\Python313\Scripts\</div>
                         </div>
                     </div>
+
+                    <div class="step">
+                        <div class="step-number">11</div>
+                        <div class="step-content">
+                            Verificar que pip (instalador de paquetes de Python) está instalado correctamente (por defecto viene instalado con Python)
+                            <div class="code-block">pip --version</div>
+                        </div>
+                    </div>
+                    
                 </div>
                 
                  <div class="note">
@@ -1025,7 +1034,7 @@ C:\Users\Usuario\AppData\Local\Programs\Python\Python313\Scripts\</div>
                          <div class="step-number">1</div>
                          <div class="step-content">
                              Visitar el repositorio de GitHub:
-                             <a href="https://github.com/anaelenaBC/EL5841_MinitallerOpenCV" target="_blank">https://github.com/anaelenaBC/EL5841_MinitallerOpenCV</a>
+                             <a href="https://github.com/MiniTallerOpenCV/sourceCode" target="_blank">https://github.com/MiniTallerOpenCV/sourceCode</a>
                          </div>
                      </div>
                      
@@ -1109,7 +1118,29 @@ C:\Users\Usuario\AppData\Local\Programs\Python\Python313\Scripts\</div>
                      </div>
                  </div>
              </div>
-         </section>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Recursos utilizados</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <h3>Python</h3>
+                    <p><strong>Enlace oficial:</strong> <a href="https://www.python.org/" target="_blank" style="color: #60a5fa; text-decoration: none;">https://www.python.org/</a></p>
+                    <p><strong>Uso en el proyecto:</strong> Lenguaje de programación principal para el desarrollo de las aplicaciones de visión por computador con OpenCV.</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>OpenCV</h3>
+                    <p><strong>Enlace oficial:</strong> <a href="https://opencv.org/" target="_blank" style="color: #60a5fa; text-decoration: none;">https://opencv.org/</a></p>
+                    <p><strong>Uso en el proyecto:</strong> Biblioteca principal para el procesamiento de imágenes, detección de objetos, reconocimiento facial y todas las funcionalidades de visión por computador implementadas.</p>
+                </div>
+            </div>
+        </section>
          
          <footer class="footer">
              <p>Desarrollado por Elena Bolaños Campos</p>
