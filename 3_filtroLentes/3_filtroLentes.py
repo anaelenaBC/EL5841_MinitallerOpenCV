@@ -2,7 +2,7 @@ import cv2
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 glasses = cv2.imread("3_filtroLentes\lentes.png", cv2.IMREAD_UNCHANGED)
 if glasses is None:

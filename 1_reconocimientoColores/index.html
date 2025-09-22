@@ -1,0 +1,1185 @@
+<style>
+body, html {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%) !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#notebook-container {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%) !important;
+}
+
+.jp-OutputArea-output {
+    background: transparent !important;
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenCV - Visión por Computador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #3b82f6 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            margin: 6rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #374151, transparent);
+            flex: 1;
+        }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .concept-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: justify;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .concept-card:nth-child(odd) {
+            margin-right: auto;
+        }
+
+        .concept-card:nth-child(even) {
+            margin-left: auto;
+        }
+
+        .concept-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-card h3::before {
+            content: '●';
+            color: #8b5cf6;
+            font-size: 1.2rem;
+        }
+
+        .concept-card p {
+            color: #d1d5db;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .history-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #06b6d4, #3b82f6, #8b5cf6);
+        }
+
+        .history-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e5e7eb;
+            text-align: justify;
+        }
+
+
+        .timeline {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .timeline-item {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: #3b82f6;
+            font-weight: 500;
+        }
+
+        .tutorial-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .tutorial-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+        }
+
+        .steps-container {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border-left: 3px solid #60a5fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .step:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: #3b82f6;
+            transform: translateX(4px);
+        }
+
+        .step-number {
+            background: #60a5fa;
+            color: #000;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-number {
+            background: #3b82f6;
+            transform: scale(1.1);
+        }
+
+        .step-content {
+            color: #d1d5db;
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+
+        .step:hover .step-content {
+            color: #ffffff;
+        }
+
+        .step-content a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .step-content a:hover {
+            text-decoration: underline;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid #374151;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: #e5e7eb;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: rgba(59, 130, 246, 0.15);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #ffffff;
+            font-weight: 500;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .note {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .note-title {
+            color: #fbbf24;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .note-content {
+            color: #d1d5db;
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.03), rgba(139, 92, 246, 0.03));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-circle:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-circle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating-circle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .concepts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .concept-card:nth-child(odd),
+            .concept-card:nth-child(even) {
+                margin: 0;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .divider {
+                width: 100%;
+                height: 1px;
+            }
+            
+            .tutorial-section {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+            
+            .tutorial-title {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+            
+            .step {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+                padding: 1rem;
+            }
+            
+            .step-number {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+                align-self: flex-start;
+            }
+            
+            .step-content {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            
+            .code-block {
+                font-size: 0.8rem;
+                padding: 0.75rem;
+                margin: 0.75rem 0;
+                overflow-x: auto;
+                word-break: break-all;
+            }
+            
+            .note {
+                padding: 0.75rem;
+                margin: 0.75rem 0;
+            }
+            
+            .note-title {
+                font-size: 0.9rem;
+            }
+            
+            .note-content {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .hero {
+                padding: 2rem 0 4rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+            
+            .section {
+                margin: 4rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .tutorial-section {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+            
+            .step {
+                padding: 0.75rem;
+                gap: 0.5rem;
+            }
+            
+            .step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.875rem;
+            }
+            
+            .step-content {
+                font-size: 0.85rem;
+            }
+            
+            .code-block {
+                font-size: 0.75rem;
+                padding: 0.5rem;
+            }
+        }
+        
+        /* Fallbacks para navegadores antiguos */
+        @supports not (backdrop-filter: blur(10px)) {
+            .concept-card {
+                background: rgba(0, 0, 0, 0.3);
+            }
+            
+            .history-section {
+                background: rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        /* Estilos para el contenido colapsable */
+        .collapsible-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .collapsible-button {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #ffffff;
+            padding: 1.5rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collapsible-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+
+        .collapsible-button:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .button-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            color: #3b82f6;
+        }
+
+        .collapsible-button.active .button-icon {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .collapsible-content.active {
+            max-height: 1000px;
+            transition: max-height 0.3s ease-in;
+        }
+
+        .collapsible-text {
+            padding: 2rem;
+            color: #e5e7eb;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .collapsible-text p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .collapsible-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .collapsible-text strong {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        /* Estilos para el footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            font-weight: 300;
+        }
+
+        .footer p:first-child {
+            color: #e5e7eb;
+            font-weight: 400;
+        }
+
+        /* Mejoras para GitHub Pages */
+        @media screen and (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media screen and (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Bibliotecas embebidas para visión por computador</h1>
+            <p class="subtitle">OpenCV y sus aplicaciones en inteligencia artificial</p>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Conocimiento previo</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="tutorial-section">
+                <div class="collapsible-container">
+                    <button class="collapsible-button" onclick="toggleCollapsible3()">
+                        <span class="button-text">¿Qué es una biblioteca?</span>
+                        <span class="button-icon">▼</span>
+                    </button>
+                    <div class="collapsible-content" id="collapsibleContent3">
+                        <div class="collapsible-text">
+                    <p>Una biblioteca en software es un conjunto de códigos, funciones, clases o módulos predefinidos que los programadores pueden usar para realizar tareas comunes sin tener que escribir todo desde cero. Es, básicamente, un paquete de herramientas listas para usar que acelera el desarrollo y mejora la eficiencia del código.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="collapsible-container">
+                    <button class="collapsible-button" onclick="toggleCollapsible4()">
+                        <span class="button-text">¿Qué es una biblioteca embebida?</span>
+                        <span class="button-icon">▼</span>
+                    </button>
+                    <div class="collapsible-content" id="collapsibleContent4">
+                        <div class="collapsible-text">
+                    <p>Una biblioteca embebida es una biblioteca que viene incorporada dentro de un software o sistema, de manera que no necesitas instalarla por separado. Se dice que está "embebida" porque forma parte del paquete principal o del entorno de ejecución, garantizando compatibilidad y facilidad de distribución.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="collapsible-container">
+                    <button class="collapsible-button" onclick="toggleCollapsible5()">
+                        <span class="button-text">¿Qué es visión por computador?</span>
+                        <span class="button-icon">▼</span>
+                    </button>
+                    <div class="collapsible-content" id="collapsibleContent5">
+                        <div class="collapsible-text">
+                    <p>La visión por computadora es un área de la inteligencia artificial que permite a las computadoras "ver" y entender imágenes o videos de manera similar a como lo hace un ser humano. Su objetivo es que una máquina pueda interpretar información visual y tomar decisiones o generar acciones basadas en ella.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="collapsible-container">
+                    <button class="collapsible-button" onclick="toggleCollapsible6()">
+                        <span class="button-text">¿Qué es OpenCV?</span>
+                        <span class="button-icon">▼</span>
+                    </button>
+                    <div class="collapsible-content" id="collapsibleContent6">
+                        <div class="collapsible-text">
+                    <p>OpenCV (Open Source Computer Vision Library) es una biblioteca de software de código abierto diseñada para visión por computadora y procesamiento de imágenes. Es muy popular porque permite que los desarrolladores construyan aplicaciones que puedan "ver" y entender imágenes y videos de manera eficiente y robusta.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Teoría</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <h3>¿Qué es la visión por computador y OpenCV?</h3>
+                    <p><strong>Visión por computador</strong> es una rama de la inteligencia artificial que permite a las máquinas "entender e interpretar imágenes y vídeos", extrayendo información de su contenido. Esto abarca tareas como reconocer objetos, detectar rostros, analizar movimientos o incluso conducir vehículos de forma autónoma. Un ejemplo común es la detección de objetos en imágenes: el sistema identifica y delimita elementos como personas, animales o artículos cotidianos en una escena. Gracias a técnicas de este tipo, un computador puede "ver" una imagen o video y tomar decisiones basadas en lo que observa, imitando en cierta medida la visión humana.</p>
+                    <br>
+                    <p><strong>OpenCV</strong> (Open Source Computer Vision Library) es una biblioteca open source diseñada justamente para facilitar el desarrollo de aplicaciones de visión por computador. Contiene cientos de algoritmos de procesamiento de imágenes y video listos para usar, lo que la ha convertido en una herramienta líder y estándar en el campo. De hecho, OpenCV incluye más de 2500 algoritmos optimizados los cuales permiten resolver problemas variados de visión artificial: detección de objetos, clasificación de imágenes, segmentación de regiones, reconocimiento facial, seguimiento de movimientos, reconstrucción 3D.</p>
+                    <br>
+                    <p>OpenCV se caracteriza por su amplio ecosistema y portabilidad. Es multiplataforma (funciona en sistemas operativos de escritorio como Windows, Linux, macOS, y en móviles Android o iOS) y multilenguaje (ofrece interfaces en C++, Python, Java, Matlab, etc.), lo cual la hace muy accesible tanto en proyectos industriales como académicos. Además, está escrita principalmente en C/C++ altamente optimizado, aprovechando instrucciones SIMD (como SSE/NEON) y pudiendo utilizar aceleración por hardware (GPU) mediante tecnologías como CUDA y OpenCL. Gracias a esta eficiencia, OpenCV permite procesamiento en tiempo real, cualidad fundamental en aplicaciones embebidas que deben analizar video en vivo (por ejemplo, visión en robots, drones o sistemas de asistencia vehicular). En resumen, OpenCV proporciona un "toolkit" esencial para incorporar visión por computador en proyectos embebidos de ingeniería electrónica, al abstraer la complejidad de los algoritmos de visión en funciones listas para usarse.</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Estructura modular de OpenCV</h3>
+                    <p>OpenCV está organizada en módulos, lo que permite incluir solo lo necesario según la aplicación y mantener la biblioteca eficiente y flexible. Entre los principales se destacan:</p>
+                    
+                    <ul style="color: #e5e7eb; line-height: 1.8; font-size: 1rem; padding-left: 2rem; margin-top: 1rem;">
+                        <li style="margin-bottom: 0.8rem;"><strong>Core (core):</strong> Núcleo básico. Define estructuras de datos (como cv::Mat) y operaciones matemáticas esenciales.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Procesamiento de Imágenes (imgproc):</strong> Funciones clásicas como filtrado, cambios de color, transformaciones geométricas y detección de bordes.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Códecs de Imágenes (imgcodecs):</strong> Lectura y escritura de formatos comunes (PNG, JPEG, BMP).</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Entradas/Salidas de Video (videoio):</strong> Captura desde cámaras o archivos y grabación de videos.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Interfaz Gráfica (highgui):</strong> Herramientas simples para mostrar imágenes, crear ventanas y capturar eventos de teclado.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Análisis de Video (video):</strong> Métodos para detectar movimiento, sustracción de fondo y seguimiento de objetos.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Calibración y 3D (calib3d):</strong> Calibración de cámaras, estimación de pose y reconstrucción tridimensional.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Características 2D (features2d):</strong> Detección y emparejamiento de puntos de interés (SIFT, ORB, Harris, etc.).</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Detección de Objetos (objdetect):</strong> Algoritmos como Viola-Jones (caras, ojos, peatones).</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Redes Neuronales (dnn):</strong> Carga e inferencia de modelos entrenados en TensorFlow, PyTorch, ONNX, etc.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Aprendizaje Automático (ml):</strong> Algoritmos clásicos como SVM, árboles de decisión, clustering, K-means.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Fotografía Computacional (photo):</strong> Técnicas de mejora y restauración de imágenes (denoising, HDR, inpainting).</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Composición de Imágenes (stitching):</strong> Creación automática de panoramas a partir de fotos superpuestas.</li>
+                        <li style="margin-bottom: 0.8rem;"><strong>Módulos auxiliares:</strong> FLANN, pruebas unitarias y bindings para distintos lenguajes.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Demostración práctica</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <h3>1_reconocimientoColores.py</h3>
+                    <p>Este programa utiliza OpenCV para detectar y reconocer colores específicos en tiempo real a través de la cámara web. Implementa algoritmos de segmentación de color en el espacio HSV para identificar objetos de colores predefinidos y dibujar contornos alrededor de ellos.</p>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <img src="resources/1.jpeg" oncontextmenu="return false;" alt="Ejemplo de detección de colores" draggable="false" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>2_direccionMirada.py</h3>
+                    <p>Este programa utiliza OpenCV para detectar en tiempo real si el usuario está mirando directamente a la cámara web. Emplea algoritmos de detección facial y de ojos para analizar la posición de los ojos dentro del rostro y determinar la dirección de la mirada. Si ambos ojos son detectados y están alineados hacia la cámara, el sistema muestra un mensaje indicando que el usuario está prestando atención. Esta funcionalidad es especialmente útil en aplicaciones de seguridad o de control de acceso.</p>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <img src="resources/2.jpeg" oncontextmenu="return false;" alt="Ejemplo de detección de mirada" draggable="false" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>3_filtroLentes.py</h3>
+                    <p>Este programa implementa un filtro de realidad aumentada que superpone lentes virtuales sobre el rostro del usuario en tiempo real utilizando la cámara web. El proceso comienza detectando la cara y los ojos mediante los clasificadores Haar Cascade de OpenCV. Una vez localizados los ojos, el sistema calcula la posición y el tamaño adecuados para colocar la imagen de los lentes virtuales. Esta técnica es ampliamente utilizada en aplicaciones de entretenimiento, redes sociales y demostraciones de realidad aumentada.</p>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <img src="resources/3.jpeg" oncontextmenu="return false;" alt="Ejemplo de filtro de lentes" draggable="false" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>4_separarCaras.py</h3>
+                    <p>
+                        Este programa utiliza OpenCV para analizar imágenes y determinar si contienen rostros humanos. Emplea algoritmos de detección facial que examinan cada imagen de una carpeta de entrada, identificando la presencia o ausencia de caras. Si se detecta al menos un rostro en la imagen, el archivo se mueve automáticamente a una carpeta designada para imágenes con caras; en caso contrario, se traslada a una carpeta separada para imágenes sin caras. Este proceso es útil para organizar grandes volúmenes de fotografías.
+                    </p>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <img src="resources/4.jpeg" oncontextmenu="return false;" alt="Ejemplo de filtro de lentes" draggable="false" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                    </div>
+                </div>
+            </div>
+            
+           
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Tutorial de instalación</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="tutorial-section">
+                <h3 class="tutorial-title">Instalación de Python</h3>
+                
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            Visitar <a href="https://www.python.org/downloads/" target="_blank">https://www.python.org/downloads/</a>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            Descargar la última versión (recomendada)
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            Ejecutar el instalador y seguir los pasos del asistente
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            Verificar que Python está instalado correctamente
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            Abrir una terminal y ejecutar el siguiente comando:
+                            <div class="code-block">python --version</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            Si aparece la versión de Python, la instalación fue exitosa
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            Si no aparece la versión, es necesario configurar las variables de entorno
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">8</div>
+                        <div class="step-content">
+                            Abrir el Panel de Control de Windows y buscar <span class="highlight">"Variables de entorno"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">9</div>
+                        <div class="step-content">
+                            En las variables de entorno, buscar la variable <span class="highlight">"Path"</span> y agregar las rutas de Python
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">10</div>
+                        <div class="step-content">
+                            Agregar las siguientes rutas:
+                            <div class="code-block">C:\Users\Usuario\AppData\Local\Programs\Python\Python313\
+C:\Users\Usuario\AppData\Local\Programs\Python\Python313\Scripts\</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">11</div>
+                        <div class="step-content">
+                            Verificar que pip (instalador de paquetes de Python) está instalado correctamente (por defecto viene instalado con Python)
+                            <div class="code-block">pip --version</div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                 <div class="note">
+                     <div class="note-title">Nota</div>
+                     <div class="note-content">
+                        Reemplazar "Usuario" con su nombre de usuario real en las rutas de Python. Después de modificar las variables de entorno, es necesario cerrar y abrir la terminal para que los cambios surtan efecto.
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="tutorial-section">
+                 <h3 class="tutorial-title">Instalación de OpenCV</h3>
+                 
+                 <div class="steps-container">
+                     <div class="step">
+                         <div class="step-number">1</div>
+                         <div class="step-content">
+                             Abrir una terminal o línea de comandos
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">2</div>
+                         <div class="step-content">
+                             Ejecutar el siguiente comando para instalar OpenCV:
+                             <div class="code-block">pip install opencv-python</div>
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">3</div>
+                         <div class="step-content">
+                             Verificar que OpenCV se instaló correctamente:
+                             <div class="code-block">python -c "import cv2; print(cv2.__version__)"</div>
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">4</div>
+                         <div class="step-content">
+                             Si aparece la versión de OpenCV, la instalación fue exitosa
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">5</div>
+                         <div class="step-content">
+                             Si no aparece la versión, configurar las variables de entorno con la ruta de OpenCV
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">6</div>
+                         <div class="step-content">
+                             Agregar la siguiente ruta a las variables de entorno:
+                             <div class="code-block">C:\Users\Usuario\AppData\Local\Programs\Python\Python313\Lib\site-packages\opencv_python_headless-4.11.0.86\opencv_python_headless.cp313-win_amd64.pyd</div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="tutorial-section">
+                 <h3 class="tutorial-title">Instalación de NumPy</h3>
+                 
+                 <div class="steps-container">
+                     <div class="step">
+                         <div class="step-number">1</div>
+                         <div class="step-content">
+                             Abrir una terminal o línea de comandos
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">2</div>
+                         <div class="step-content">
+                             Ejecutar el siguiente comando para instalar NumPy:
+                             <div class="code-block">pip install numpy</div>
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">3</div>
+                         <div class="step-content">
+                             Verificar que NumPy se instaló correctamente:
+                             <div class="code-block">python -c "import numpy; print(numpy.__version__)"</div>
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">4</div>
+                         <div class="step-content">
+                             Si aparece la versión de NumPy, la instalación fue exitosa
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">5</div>
+                         <div class="step-content">
+                             Si no aparece la versión, configurar las variables de entorno con la ruta de NumPy
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">6</div>
+                         <div class="step-content">
+                             Agregar la siguiente ruta a las variables de entorno:
+                             <div class="code-block">C:\Users\Usuario\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\</div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="tutorial-section">
+                 <h3 class="tutorial-title">Código fuente</h3>
+                 
+                 <div class="steps-container">
+                     <div class="step">
+                         <div class="step-number">1</div>
+                         <div class="step-content">
+                             Visitar el repositorio de GitHub:
+                             <a href="https://github.com/MiniTallerOpenCV/sourceCode" target="_blank">https://github.com/MiniTallerOpenCV/sourceCode</a>
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">2</div>
+                         <div class="step-content">
+                             Descargar el archivo <span class="highlight">"5_calculadoraDedos.py"</span> o clonar el repositorio completo
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">3</div>
+                         <div class="step-content">
+                             Guardar el archivo en una carpeta de tu elección
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="note">
+                     <div class="note-title">Nota</div>
+                     <div class="note-content">
+                         Los demás archivos en el repositorio son demostraciones adicionales que puedes explorar para aprender más sobre las capacidades de OpenCV
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="tutorial-section">
+                 <h3 class="tutorial-title">Ejecución del programa</h3>
+                 
+                 <div class="steps-container">
+                     <div class="step">
+                         <div class="step-number">1</div>
+                         <div class="step-content">
+                             Abrir una terminal o entorno de desarrollo (VSCode, IDE Python...)
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">2</div>
+                         <div class="step-content">
+                             Navegar a la carpeta donde se encuentra el archivo <span class="highlight">"5_calculadoraDedos.py"</span>
+                         </div>
+                     </div>
+
+                     <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            Seleccionar el dispositivo de entrada de la cámara en la variable (0 por defecto)
+                            <div class="code-block">cap = cv2.VideoCapture(0)</div>
+                        </div>
+
+                    </div>
+                     
+                     <div class="step">
+                         <div class="step-number">4</div>
+                         <div class="step-content">
+                             Ejecutar el archivo con el siguiente comando:
+                             <div class="code-block">python 5_calculadoraDedos.py</div>
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">5</div>
+                         <div class="step-content">
+                             Verificar que el programa se ejecuta correctamente y muestra la interfaz de detección de dedos
+                         </div>
+                     </div>
+                     
+                     <div class="step">
+                         <div class="step-number">6</div>
+                         <div class="step-content">
+                             Si hay errores, verificar que todas las dependencias están instaladas correctamente
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="note">
+                     <div class="note-title">Nota</div>
+                     <div class="note-content">
+                         Si el programa no se ejecuta correctamente, revisar que Python, OpenCV y NumPy estén instalados y configurados correctamente. También verificar que se tiene una cámara web conectada.
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Recursos utilizados</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <h3>Python</h3>
+                    <p><strong>Enlace oficial:</strong> <a href="https://www.python.org/" target="_blank" style="color: #60a5fa; text-decoration: none;">https://www.python.org/</a></p>
+                    <p><strong>Uso en el proyecto:</strong> Lenguaje de programación principal para el desarrollo de las aplicaciones de visión por computador con OpenCV.</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>OpenCV</h3>
+                    <p><strong>Enlace oficial:</strong> <a href="https://opencv.org/" target="_blank" style="color: #60a5fa; text-decoration: none;">https://opencv.org/</a></p>
+                    <p><strong>Uso en el proyecto:</strong> Biblioteca principal para el procesamiento de imágenes, detección de objetos, reconocimiento facial y todas las funcionalidades de visión por computador implementadas.</p>
+                </div>
+            </div>
+        </section>
+         
+         <footer class="footer">
+             <p>Desarrollado por Elena Bolaños Campos</p>
+             <p>EL5841 - 2025</p>
+         </footer>
+     </div>
+
+     <script>
+         function toggleCollapsible3() {
+             const button = document.querySelectorAll('.collapsible-button')[0];
+             const content = document.getElementById('collapsibleContent3');
+             
+             button.classList.toggle('active');
+             content.classList.toggle('active');
+         }
+         
+         function toggleCollapsible4() {
+             const button = document.querySelectorAll('.collapsible-button')[1];
+             const content = document.getElementById('collapsibleContent4');
+             
+             button.classList.toggle('active');
+             content.classList.toggle('active');
+         }
+         
+         function toggleCollapsible5() {
+             const button = document.querySelectorAll('.collapsible-button')[2];
+             const content = document.getElementById('collapsibleContent5');
+             
+             button.classList.toggle('active');
+             content.classList.toggle('active');
+         }
+         
+         function toggleCollapsible6() {
+             const button = document.querySelectorAll('.collapsible-button')[3];
+             const content = document.getElementById('collapsibleContent6');
+             
+             button.classList.toggle('active');
+             content.classList.toggle('active');
+         }
+     </script>
+ </body>
+ </html>

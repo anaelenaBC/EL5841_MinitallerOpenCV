@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 x, y, w, h = 10, 10, 200, 200
 
 colors_hsv = {
